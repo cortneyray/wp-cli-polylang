@@ -33,15 +33,16 @@ function pll_get_default_language_information($languageCode)
     require(PLL_SETTINGS_INC.'/languages.php');
 
     foreach ($languages as $language) {
+
         if (
-            $language[1] == $languageCode
+            $language['locale'] == $languageCode
         ) {
             return array(
-                'code'      => $language[0],
-                'locale'    => $language[1],
-                'name'      => $language[2],
-                'rtl'       => $language[3],
-                'flag'      => $language[4]
+                'code'      => $language['code'],
+                'locale'    => $language['locale'],
+                'name'      => $language['name'],
+                'rtl'       => $language['dir'],
+                'flag'      => $language['flag']
             );
         }
     }
@@ -70,12 +71,12 @@ function pll_add_language($languageCode, $languageOrder = 0)
     $info = pll_get_default_language_information($languageCode);
 
     $args = array(
-        name        => $info['name'],
-        slug        => $info['code'],
-        locale      => $info['locale'],
-        flag        => $info['flag'],
-        rtl         => ($info['rtl'] == 'rtl') ? 1 : 0,
-        term_group  => $languageOrder
+        'name'        => $info['name'],
+        'slug'        => $info['code'],
+        'locale'      => $info['locale'],
+        'flag'        => $info['flag'],
+        'rtl'         => ($info['rtl'] == 'rtl') ? 1 : 0,
+        'term_group'  => $languageOrder
     );
 
     return $polylang->model->add_language($args);
