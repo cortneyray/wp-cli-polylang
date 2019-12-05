@@ -33,7 +33,6 @@ function pll_get_default_language_information($languageCode)
     require(PLL_SETTINGS_INC.'/languages.php');
 
     foreach ($languages as $language) {
-
         if (
             $language['locale'] == $languageCode
         ) {
