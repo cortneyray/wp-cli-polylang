@@ -30,8 +30,8 @@ function pll_get_default_language_information($languageCode)
 {
     global $polylang;
 
-    // Depending Polylang version, 'languages.php' initializes $languages var or returns an array with all of 
-    // the languages content.
+    /* Depending Polylang version, 'languages.php' initializes $languages var or returns an array with all of 
+     the languages content. This array has languageCode as key so it's easier to find a language */
     $req_res = (require PLL_SETTINGS_INC.'/languages.php' );
     if(is_array($req_res)) $languages = $req_res;
 
