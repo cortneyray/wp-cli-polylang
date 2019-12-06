@@ -30,20 +30,20 @@ function pll_get_default_language_information($languageCode)
 {
     global $polylang;
 
-    require(PLL_SETTINGS_INC.'/languages.php');
+    // Depending Polylang version, 'languages.php' initializes $languages var or returns an array with all of 
+    // the languages content.
+    $req_res = (require PLL_SETTINGS_INC.'/languages.php' );
+    if(is_array($req_res)) $languages = $req_res;
 
-    foreach ($languages as $language) {
-        if (
-            $language['locale'] == $languageCode
-        ) {
-            return array(
-                'code'      => $language['code'],
-                'locale'    => $language['locale'],
-                'name'      => $language['name'],
-                'rtl'       => $language['dir'],
-                'flag'      => $language['flag']
-            );
-        }
+    if(array_key_exists($languageCode, $languages))
+    {
+        return array(
+            'code'      => $languages[$languageCode]['code'],
+            'locale'    => $languages[$languageCode]['locale'],
+            'name'      => $languages[$languageCode]['name'],
+            'rtl'       => $languages[$languageCode]['dir'],
+            'flag'      => $languages[$languageCode]['flag']
+        );
     }
 
     return null;
